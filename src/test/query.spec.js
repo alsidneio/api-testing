@@ -13,6 +13,10 @@ describe("the query package", function(){
             }
             assert.deepEqual(actual, expected); //deep equal function is great when comparing arrays and objects
         })
+
+        it("should return an object: {number: 3}", ()=>{
+            assert.deepEqual(parse('number=3'),{number:3})
+        })
     })
 
     describe('the stringify function', function (){
@@ -26,6 +30,16 @@ describe("the query package", function(){
             const actual= stringify(testObj);
             const expected = "by=kati-frantz&popular=true&category=nodejs";
             assert.equal(actual,expected);
+        })
+
+        it("should eliminate all undefined & null values", ()=>{
+            const queryObject ={
+                by:'kati-frantz',
+                popular: undefined,
+                unanswered: null
+            }
+
+            assert.equal(stringify(queryObject), "by=kati-frantz")
         })
     })
 })
